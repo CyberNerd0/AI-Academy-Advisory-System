@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academic Advisor MVP</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Using a simple font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="app">
+        <!-- Navigation -->
+        <nav>
+            <div class="logo">🎓 Academic Advisor</div>
+            <div class="user-selector">
+                <label>View as:</label>
+                <select id="userRole" onchange="switchRole()">
+                    <option value="student">Student (John Doe)</option>
+                    <option value="adviser">Adviser (Dr. Smith)</option>
+                </select>
+            </div>
+        </nav>
+
+        <!-- STUDENT VIEW -->
+        <main id="studentView">
+            <header>
+                <h1>My Dashboard</h1>
+                <p>Welcome back, <span id="studentName">Student</span></p>
+            </header>
+
+            <!-- KPI Cards -->
+            <div class="kpi-grid">
+                <div class="card kpi">
+                    <h3>Current CGPA</h3>
+                    <div class="value" id="cgpaValue">--</div>
+                    <small>All-time average</small>
+                </div>
+                <div class="card kpi">
+                    <h3>Credits Earned</h3>
+                    <div class="value" id="creditsValue">--</div>
+                    <small>Total Units</small>
+                </div>
+                <div class="card kpi">
+                    <h3>Status</h3>
+                    <div class="value" id="statusValue">--</div>
+                    <small>Academic Standing</small>
+                </div>
+            </div>
+
+            <div class="content-grid">
+                <!-- Course Eligibility List -->
+                <div class="card">
+                    <h2>Course Eligibility</h2>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Code</th>
+                                <th>Course</th>
+                                <th>Credits</th>
+                                <th>Status</th>
+                                <th>Reason</th>
+                            </tr>
+                        </thead>
+                        <tbody id="courseTableBody">
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Chatbot Section -->
+                <div class="card chat-card">
+                    <h2>Ask AI Advisor</h2>
+                    <div class="chat-history" id="chatHistory">
+                        <div class="message ai">
+                            Hello! I can help you with course planning or explain your GPA. Ask me anything!
+                        </div>
+                    </div>
+                    <div class="chat-input-area">
+                        <input type="text" id="chatInput" placeholder="e.g., Why can't I take CSC401?" onkeypress="handleEnter(event)">
+                        <button onclick="sendMessage()">Send</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- ADVISER VIEW (Hidden by default) -->
+        <main id="adviserView" style="display: none;">
+            <header>
+                <h1>Adviser Portal</h1>
+                <p>Managing Students</p>
+            </header>
+            
+            <div class="card">
+                <h2>Student Lookup</h2>
+                <div class="search-bar">
+                    <input type="number" id="adviserStudentId" placeholder="Enter Student ID" value="1">
+                    <button onclick="loadAdviserView()">Load Student</button>
+                </div>
+                <br>
+                <div id="adviserContent" style="display:none;">
+                    <h3>Viewing: <span id="adviserStudentName">--</span></h3>
+                    <p><strong>CGPA:</strong> <span id="adviserCgpa">--</span></p>
+                    
+                    <h4>AI Simulation</h4>
+                    <p>Ask a question on behalf of this student:</p>
+                    <div class="chat-input-area">
+                        <input type="text" id="adviserChatInput" placeholder="e.g., Explain course blockage">
+                        <button onclick="sendAdviserMessage()">Simulate Advice</button>
+                    </div>
+                    <div class="chat-history" id="adviserChatOutput" style="margin-top: 1rem; border: 1px solid #eee; padding: 10px;">
+                        <!-- Output -->
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

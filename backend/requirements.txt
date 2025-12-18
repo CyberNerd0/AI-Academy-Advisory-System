@@ -1,0 +1,6 @@
+fastapi
+uvicorn
+sqlalchemy
+pydantic
+python-multipart
+# google-generativeai # Uncomment if using Gemini API
