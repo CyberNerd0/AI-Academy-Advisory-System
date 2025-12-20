@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 from typing import Dict, List
 import re
-from . import models, logic
+import models, logic
 
 def get_student_context(student_id: int, db: Session) -> Dict:
     """

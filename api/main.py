@@ -4,8 +4,8 @@ from sqlalchemy.orm import Session
 from typing import List
 from pydantic import BaseModel
 
-from . import models, schemas, logic, ai_advisor
-from .database import SessionLocal, engine
+import models, schemas, logic, ai_advisor
+from database import SessionLocal, engine
 
 # Create the database tables automatically on startup
 models.Base.metadata.create_all(bind=engine)

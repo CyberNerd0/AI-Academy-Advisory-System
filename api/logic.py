@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 from typing import List, Dict, Tuple
-from . import models
+import models
 
 def calculate_gpa_metrics(results: List[models.Result]) -> Dict:
     """
