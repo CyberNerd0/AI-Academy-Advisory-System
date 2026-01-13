@@ -15,7 +15,10 @@ app = FastAPI(title="Academic Advisory System API")
 
 @app.on_event("startup")
 def startup_event():
-    seed.seed_data()
+    try:
+        seed.seed_data()
+    except Exception as e:
+        print(f"Error seeding data: {e}")
 
 # Allow CORS for all origins (for MVP simplicity)
 app.add_middleware(
