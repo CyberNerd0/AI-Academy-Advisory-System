@@ -5,7 +5,9 @@ from sqlalchemy.orm import sessionmaker
 # Database URL for SQLite. 
 # In a production environment, this would be a PostgreSQL or MySQL URL.
 # For this MVP and academic defense, SQLite is sufficient and requires no external setup.
-SQLALCHEMY_DATABASE_URL = "sqlite:///./academic_advisor.db"
+# Database URL for SQLite.
+# Using in-memory database for Vercel ensuring no file-permission errors.
+SQLALCHEMY_DATABASE_URL = "sqlite:///:memory:"
 
 # Create the database engine.
 # connect_args={"check_same_thread": False} is needed only for SQLite.

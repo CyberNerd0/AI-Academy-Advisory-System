@@ -5,12 +5,17 @@ from typing import List
 from pydantic import BaseModel
 
 import models, schemas, logic, ai_advisor
+import seed
 from database import SessionLocal, engine
 
 # Create the database tables automatically on startup
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Academic Advisory System API")
+
+@app.on_event("startup")
+def startup_event():
+    seed.seed_data()
 
 # Allow CORS for all origins (for MVP simplicity)
 app.add_middleware(

@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 from datetime import date
-from backend import models, database
-from backend.database import engine
+import models, database
+from database import engine
 
 # Create tables if they don't exist
 models.Base.metadata.create_all(bind=engine)
