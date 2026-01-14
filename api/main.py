@@ -11,7 +11,7 @@ from database import SessionLocal, engine
 # Create the database tables automatically on startup
 models.Base.metadata.create_all(bind=engine)
 
-app = FastAPI(title="Academic Advisory System API")
+app = FastAPI(title="Academic Advisory System API", root_path="/api")
 
 @app.on_event("startup")
 def startup_event():
