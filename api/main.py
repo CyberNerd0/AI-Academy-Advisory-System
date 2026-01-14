@@ -180,7 +180,10 @@ def ask_advisor_endpoint(student_id: int, request: QuestionRequest, db: Session 
     - "Why can't I take CSC401?"
     - "How is my CGPA?"
     """
-    response_text = ai_advisor.ask_academic_advisor(student_id, request.question, db)
-    return {"response": response_text}
+    # --- MOCKING DB TO DEBUG CRASH ---
+    # response_text = ai_advisor.ask_academic_advisor(student_id, request.question, db)
+    # return {"response": response_text}
+    
+    return {"response": f"I am in Recovery Mode. You asked: '{request.question}'. (DB Connection Unavailable)"}
 
 

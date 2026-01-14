@@ -18,7 +18,7 @@ const Chatbot = ({ studentId, role }) => {
 
         try {
             // Include question in body
-            const response = await axios.post(`http://127.0.0.1:8000/ask/${studentId}`, {
+            const response = await axios.post(`/api/ask/${studentId}`, {
                 question: userMsg.text
             });
 
