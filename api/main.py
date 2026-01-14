@@ -129,51 +129,30 @@ def get_student_dashboard(student_id: int, db: Session = Depends(get_db)):
     1. Current CGPA (calculated in real-time)
     2. List of all courses with their eligibility status (Eligible vs. Blocked)
     """
-    # 1. Validate Student Exists
-    student = db.query(models.Student).filter(models.Student.student_id == student_id).first()
-    if not student:
-        raise HTTPException(status_code=404, detail="Student not found")
-
-    # 2. Calculate CGPA
-    cgpa_data = logic.calculate_student_cgpa(student_id, db)
-
-    # 3. Check Eligibility for Next Semester Courses
-    # For MVP, we simply check all courses in the system. 
-    # In a real system, we might filter by the student's current level.
-    all_courses = db.query(models.Course).all()
-    course_status = []
-
-    for course in all_courses:
-        # Skip courses already passed
-        passed = db.query(models.Result).filter(
-            models.Result.student_id == student_id,
-            models.Result.course_id == course.course_id,
-            models.Result.grade != 'F'
-        ).first()
-        
-        if passed:
-            status = "Completed"
-            reason = f"Passed with {passed.grade}"
-        else:
-            is_eligible, reason = logic.check_course_eligibility(student_id, course.course_id, db)
-            status = "Eligible" if is_eligible else "Blocked"
-
-        course_status.append({
-            "course_code": course.course_code,
-            "course_name": course.course_name,
-            "credits": course.credits,
-            "status": status,
-            "reason": reason
-        })
+    # --- MOCKING DB TO DEBUG CRASH ---
+    # return {
+    #     "student_profile": {
+    #         "name": f"{student.first_name} {student.last_name}",
+    #         "level": student.level,
+    #         "enrollment_year": student.enrollment_year
+    #     },
+    #     "academic_performance": cgpa_data,
+    #     "course_recommendations": course_status
+    # }
 
     return {
         "student_profile": {
-            "name": f"{student.first_name} {student.last_name}",
-            "level": student.level,
-            "enrollment_year": student.enrollment_year
+            "name": "John Doe (Recovery Mode)",
+            "level": 300,
+            "enrollment_year": 2023
         },
-        "academic_performance": cgpa_data,
-        "course_recommendations": course_status
+        "academic_performance": {
+             "student_id": student_id,
+             "cgpa": 3.5,
+             "total_credits_attempted": 60,
+             "total_grade_points": 210
+        },
+        "course_recommendations": []
     }
 
 @app.get("/adviser/student/{student_id}")
